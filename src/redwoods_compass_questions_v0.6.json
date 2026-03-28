@@ -373,55 +373,7 @@
         "weight": 1
       },
       {
-        "Subcategory": "Is there a defined communications platform?",
-        "Question": "Is there a standard communication platform used at the organization?",
-        "Description": "",
-        "Infotip": "",
-        "Answer": "",
-        "weight": 1
-      },
-      {
-        "Subcategory": "Is there a defined communications platform?",
-        "Question": "Are there standardized incremental communications (like newsletters, town halls, all-hands meetings, etc)?",
-        "Description": "",
-        "Infotip": "",
-        "Answer": "",
-        "weight": 1
-      },
-      {
-        "Subcategory": "Are all teams on the same design tooling?",
-        "Question": "Is all design work done in the same tool?",
-        "Description": "",
-        "Infotip": "",
-        "Answer": "",
-        "weight": 1
-      },
-      {
-        "Subcategory": "Are all teams on the same design tooling?",
-        "Question": "Is all prototyping work done in the same tool?",
-        "Description": "",
-        "Infotip": "",
-        "Answer": "",
-        "weight": 1
-      },
-      {
-        "Subcategory": "Are all teams on the same design tooling?",
-        "Question": "Is handoff done in the same tool?",
-        "Description": "",
-        "Infotip": "",
-        "Answer": "",
-        "weight": 1
-      },
-      {
-        "Subcategory": "Are all teams on the same design tooling?",
-        "Question": "Are design assets distributed through the same tool?",
-        "Description": "",
-        "Infotip": "",
-        "Answer": "",
-        "weight": 1
-      },
-      {
-        "Subcategory": "Are all teams on the same engineering tooling?",
+        "Subcategory": "Is there a defined tech stack and/or set of frameworks?",
         "Question": "Does the design system fully support the primary code language(s) used by product teams?",
         "Description": "",
         "Infotip": "",
@@ -429,25 +381,33 @@
         "weight": 1
       },
       {
-        "Subcategory": "Are all teams on the same engineering tooling?",
-        "Question": "Is code stored in the same place across the org?",
-        "Description": "",
+        "Subcategory": "Is there a defined communications platform?",
+        "Question": "In addition to communication platforms does your organization or team send out regular company updates from leadership?",
+        "Description": "Company updates can be town halls, newsletters, webinars, quarterly reports etc.",
         "Infotip": "",
         "Answer": "",
         "weight": 1
       },
       {
-        "Subcategory": "Are all teams on the same engineering tooling?",
-        "Question": "Are there established approaches across the organization when it comes to page performance and QA testing?",
-        "Description": "Some organizations have a unilateral process, some have certain processes based on business unit. This question seeks to establish if there are processes at all, or if there isn't",
+        "Subcategory": "Are all teams on the same design tooling?",
+        "Question": "Are the designers using the same set of tools to do work?",
+        "Description": "By set of tools we mean a specific set of tools and apps allowed by your company for official work.",
         "Infotip": "",
         "Answer": "",
         "weight": 1
       },
       {
-        "Subcategory": "Are all teams on the same engineering tooling?",
-        "Question": "Does deployment follow the same progress across the org?",
-        "Description": "",
+        "Subcategory": "Are all teams on the same design tooling?",
+        "Question": "Is prototyping happening in your company?",
+        "Description": "With prototyping we mean an artifact used to demonstrate interactivity and functionality to drive shared understanding",
+        "Infotip": "",
+        "Answer": "",
+        "weight": 1
+      },
+      {
+        "Subcategory": "Are all teams on the same design tooling?",
+        "Question": "Are design resources distributed through the same tool?",
+        "Description": "Some organizations have specific places where logos, and images live that is sometimes separate from the libraries where components live, for example",
         "Infotip": "",
         "Answer": "",
         "weight": 1
