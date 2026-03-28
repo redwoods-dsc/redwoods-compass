@@ -4,14 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compass Questionnaire</title>
+    <link rel="stylesheet" href="tokens.css">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        canvas: "var(--color-background-canvas)",
+                        surface: "var(--color-background-surface)",
+                        "surface-subtle": "var(--color-background-surface-subtle)",
+                        primary: "var(--color-text-primary)",
+                        secondary: "var(--color-text-secondary)",
+                        muted: "var(--color-text-muted)",
+                        inverse: "var(--color-text-inverse)",
+                        link: "var(--color-text-link)",
+                        divider: "var(--color-border-divider)",
+                        action: "var(--color-action-primary-background)",
+                        "action-hover": "var(--color-action-primary-background-hover)",
+                        selection: "var(--color-action-selection-background)",
+                    },
+                    fontFamily: {
+                        body: "var(--font-family-body)",
+                        heading: "var(--font-family-heading)",
+                    },
+                    fontWeight: {
+                        body: "var(--font-weight-body)",
+                        heading: "var(--font-weight-heading)",
+                    },
+                    fontSize: {
+                        body: "var(--font-size-body)",
+                        h1: "var(--font-size-heading-1)",
+                        h2: "var(--font-size-heading-2)",
+                        h3: "var(--font-size-heading-3)",
+                        nav: "var(--font-size-nav)",
+                        small: "var(--font-size-small)",
+                    },
+                    lineHeight: {
+                        body: "var(--line-height-body)",
+                        heading: "var(--line-height-heading)",
+                    },
+                }
+            }
+        }
+    </script>
     <style>
         /* Fallback background matching React default bg */
         body {
-            background-color: rgba(24,25,26,1);
-            color: #e4e6ea;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--color-background-canvas);
+            color: var(--color-text-primary);
+            font-family: var(--font-family-body);
             margin: 0;
             padding: 0;
         }
@@ -21,14 +64,14 @@
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #242526; 
+            background: var(--color-background-surface); 
         }
         ::-webkit-scrollbar-thumb {
-            background: #4a4b4c; 
+            background: var(--color-border-divider); 
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #5a5b5c; 
+            background: var(--color-text-muted); 
         }
 
         /* Follow-up question slide-in animation */
@@ -48,31 +91,31 @@
     </style>
 </head>
 <body>
-    <div id="app" class="w-full min-h-screen">
+    <div id="app" class="w-full min-h-screen bg-canvas">
         <div class="max-w-3xl mx-auto p-4">
             
             <!-- Controls -->
-            <div class="sticky top-0 z-50 bg-[#18191a] pt-2 pb-4 mb-6 border-b border-[#3a3b3c]">
+            <div class="sticky top-0 z-50 bg-canvas pt-2 pb-4 mb-6 border-b border-divider">
                 <div class="flex items-center gap-4 mb-4">
                     <label for="toggleSub" class="hidden flex items-center gap-2 text-sm cursor-pointer select-none">
                         <div class="relative">
                             <input id="toggleSub" type="checkbox" class="sr-only peer" />
-                            <div class="w-9 h-5 bg-[#3a3b3c] rounded-full peer-checked:bg-[#1877f2] transition-colors"></div>
+                            <div class="w-9 h-5 bg-divider rounded-full peer-checked:bg-action transition-colors"></div>
                             <div class="absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4"></div>
                         </div>
                         <span>Subcategories titles</span>
                     </label>
 
                     <div class="ml-auto flex items-center gap-4">
-                        <a href="visualization.html" class="text-sm text-[#1877f2] hover:underline flex items-center gap-1.5">
+                        <a href="visualization.html" class="text-sm text-link hover:underline flex items-center gap-1.5">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                             Visualize Results
                         </a>
                         <div class="text-sm font-medium"><span id="progressText">0</span>% complete</div>
                     </div>
                 </div>
-                <div class="h-2 bg-[#3a3b3c] rounded overflow-hidden">
-                    <div id="progressBar" class="bg-[#1877f2] h-full transition-all" style="width: 0%;"></div>
+                <div class="h-2 bg-divider rounded overflow-hidden">
+                    <div id="progressBar" class="bg-action h-full transition-all" style="width: 0%;"></div>
                 </div>
             </div>
 
@@ -82,16 +125,16 @@
             </div>
 
             <!-- Export Button -->
-            <button id="exportCsvBtn" class="mt-8 px-6 py-3 bg-[#27ae60] rounded hover:opacity-80 transition-opacity" disabled>
+            <button id="exportCsvBtn" class="mt-8 px-6 py-3 bg-action text-inverse rounded hover:opacity-80 transition-opacity" disabled>
                 Download CSV
             </button>
         </div>
     </div>
 
     <!-- Tooltip Element -->
-    <div id="tooltip" class="hidden info-tip-content bg-[#242526] text-[#e4e6ea] p-3 rounded-lg shadow-lg border border-[#3a3b3c] text-sm overflow-auto" style="position: fixed; z-index: 2147483647; max-width: min(680px, calc(100vw - 32px)); max-height: 180px; transform: translate(-50%, -100%);">
+    <div id="tooltip" class="hidden info-tip-content bg-surface text-primary p-3 rounded-lg shadow-lg border border-divider text-sm overflow-auto" style="position: fixed; z-index: 2147483647; max-width: min(680px, calc(100vw - 32px)); max-height: 180px; transform: translate(-50%, -100%);">
         <div id="tooltipText"></div>
-        <div class="info-tip-arrow absolute left-1/2 -translate-x-1/2 bottom-[-6px] border-t-[6px] border-t-[#242526] border-x-[6px] border-x-transparent"></div>
+        <div class="info-tip-arrow absolute left-1/2 -translate-x-1/2 bottom-[-6px] border-t-[6px] border-t-[var(--color-background-surface)] border-x-[6px] border-x-transparent"></div>
     </div>
 
     <!-- Main Logic -->

@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compass Results Visualizer</title>
+    <link rel="stylesheet" href="tokens.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <style>
         /* ── Reset & Base ─────────────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg-primary:   #18191a;
-            --bg-card:      #242526;
-            --bg-header:    #2a2b2d;
-            --bg-input:     #3a3b3c;
-            --border:       #3a3b3c;
-            --text-primary: #e4e6ea;
-            --text-mute:    #b0b3b8;
-            --text-dim:     #6c6c6d;
-            --blue:         #1877f2;
+            --bg-primary:   var(--color-background-canvas);
+            --bg-card:      var(--color-background-surface);
+            --bg-header:    var(--color-background-surface);
+            --bg-input:     var(--color-background-canvas);
+            --border:       var(--color-border-divider);
+            --text-primary: var(--color-text-primary);
+            --text-mute:    var(--color-text-secondary);
+            --text-dim:     var(--color-text-muted);
+            --blue:         var(--color-text-link);
             --green:        #27ae60;
             --red:          #e74c3c;
 
             /* Dataset colour palette */
-            --ds0: #1877f2;
+            --ds0: var(--color-text-link);
             --ds1: #27ae60;
             --ds2: #e67e22;
             --ds3: #9b59b6;
@@ -36,7 +37,7 @@
         body {
             background: var(--bg-primary);
             color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: var(--font-family-body);
             min-height: 100vh;
         }
 
@@ -98,7 +99,7 @@
         }
         .upload-zone:hover, .upload-zone.drag-over {
             border-color: var(--blue);
-            background: rgba(24, 119, 242, 0.06);
+            background: rgba(0, 73, 132, 0.06);
         }
         .upload-zone input[type="file"] {
             position: absolute;
@@ -314,7 +315,7 @@
 
 <!-- ── Header ─────────────────────────────────────────────────────── -->
 <header class="page-header">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1877f2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-link)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"/>
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
     </svg>
@@ -383,9 +384,66 @@
 </main>
 
 <script>
+// ── Authoritative question list (from redwoods_compass_questions_v0.6.json) ──
+// All questions across all categories, including conditional follow-ups.
+// Used to validate that an uploaded CSV belongs to this questionnaire version.
+const VALID_QUESTIONS = new Set([
+    // Authority
+    "Is there a design critique culture in the organization?",
+    "Is there leadership support for the design system?",
+    "Does the design system team have the autonomy to make decisions for other teams without requiring case-by-case approval?",
+    // Alignment
+    "Is there a defined design strategy in the company?",
+    "Do designers at your organisation have deep, T-shaped specialisms (e.g., UX, UI, research, content, information architecture)?",
+    "Does the org have an established digital governance framework?",
+    "Is there a specific goal or mission statement for the design system?",
+    "Does your system have a specific set of team-level goals or missions that might not directly relate to the org-level mission statement?",
+    "Is there a clear set of values for the design system, specifically?",
+    "Is there a clear set of criteria for success for the design system?",
+    // Resource Lifecycle
+    "Does the 'Definition of Done' for a new resource require parity across design, code, and documentation?",
+    "Is there a documented process for intake that allows non-maintainers to propose or contribute changes?",
+    "Are documentation updates tied to the release cadence of the code/design libraries?",
+    "Is there a clear system for labeling updates so consumers know if a change will break their work?",
+    "When a resource is deprecated, is its status reflected simultaneously in the code and the documentation site?",
+    "Do you provide migration guides or automated tools to help teams move off deprecated resources?",
+    // People
+    "Do the individuals maintaining or building the design system split their time across other non-system projects?",
+    "Is there a formal agreement or process defining how that split is managed?",
+    "Do these maintainers periodically rotate into product teams to build features?",
+    "Do the product designers and engineers (consumers) split their time across multiple products or teams simultaneously?",
+    "Is there a formal resource planning process for this allocation?",
+    "Would the organization be open to a rotation program (e.g., embedding consumers into the system team)?",
+    "Is there a group of individuals assigned to work on the design system, specifically?",
+    "Is there a defined group of intended users for the design system?",
+    "Do we have the teammates internally that can successfully build the design system?",
+    "Can we supplement the core design system team with additional teammates from around the org?",
+    "If needed, can the design system team get help?",
+    "Are there trainings and processes in place to onboard new users to the design system?",
+    // Investment
+    "Is there leadership approval/commitment for hiring additional teammates?",
+    "Has the organization made an official commitment to fund the ongoing maintenance and longevity of the design system?",
+    "Is there a tooling budget for continuing current tools?",
+    "If the team wanted to explore new or additional tooling, would they be able to?",
+    "Does the organization pay for individual trainings, courses, conferences?",
+    "Does the organization bring in external teachers/speakers/workshop hosts?",
+    "Does the org make space for learning and development in the average work day/week/cycle?",
+    // Infrastructure
+    "Does your organisation build on multiple platforms?",
+    "Are each of those platforms building in alignment with the same design system?",
+    "Is your platform built using your design system?",
+    "For your web applications are you using multiple frameworks?",
+    "Does the design system fully support the primary code language(s) used by product teams?",
+    "Is there a standard practice for using a central communication platform at the organization?",
+    "In addition to communication platforms does your organization or team send out regular company updates from leadership?",
+    "Are the designers using the same set of tools to do work?",
+    "Is prototyping happening in your company?",
+    "Are design resources distributed through the same tool?",
+]);
+
 // ── Palette ────────────────────────────────────────────────────────
 const PALETTE = [
-    { solid: '#1877f2', fill: 'rgba(24,119,242,0.15)'  },
+    { solid: '#004984', fill: 'rgba(0,73,132,0.15)'    },
     { solid: '#27ae60', fill: 'rgba(39,174,96,0.15)'   },
     { solid: '#e67e22', fill: 'rgba(230,126,34,0.15)'  },
     { solid: '#9b59b6', fill: 'rgba(155,89,182,0.15)'  },
@@ -396,7 +454,7 @@ const PALETTE = [
 ];
 
 // ── State ──────────────────────────────────────────────────────────
-let datasets = [];        // [{ id, name, color, data: [{category, scores}] }]
+let datasets = [];        // [{ id, name, color, rows: [{category, question, answer, weight}] }]
 let radarChart = null;
 let nextId = 0;
 
@@ -441,13 +499,14 @@ function handleFiles(files) {
 // Weight: 0 (excluded from chart), 0.5 (half weight), 1 (full weight — default)
 function parseCSV(text) {
     const lines = text.trim().split(/\r?\n/);
-    if (lines.length < 2) return [];
+    if (lines.length < 2) return null;
 
     // Parse header to find column indices
     const header = splitCSVLine(lines[0]).map(h => h.trim().toLowerCase());
-    const colCat    = findCol(header, ['category']);
-    const colAns    = findCol(header, ['answer']);
-    const colWeight = findCol(header, ['weight']);
+    const colCat      = findCol(header, ['category']);
+    const colAns      = findCol(header, ['answer']);
+    const colWeight   = findCol(header, ['weight']);
+    const colQuestion = findCol(header, ['question']);
 
     if (colCat === -1 || colAns === -1) return null; // unrecognised format
 
@@ -459,12 +518,30 @@ function parseCSV(text) {
         const rawWeight = colWeight !== -1 ? (cells[colWeight] || '').trim() : '1';
         const weight = parseFloat(rawWeight);
         rows.push({
-            category: (cells[colCat] || '').trim(),
-            answer:   (cells[colAns]  || '').trim(),
+            category: (cells[colCat]      || '').trim(),
+            question: colQuestion !== -1 ? (cells[colQuestion] || '').trim() : '',
+            answer:   (cells[colAns]      || '').trim(),
             weight:   isNaN(weight) ? 1 : weight,
         });
     }
     return rows;
+}
+
+// ── Version validation ────────────────────────────────────────────
+// Returns the list of question texts in this CSV that are NOT in the
+// authoritative question set. Conditional follow-ups are included in
+// VALID_QUESTIONS, so any unrecognised question genuinely signals a
+// different questionnaire version.
+function unknownQuestions(rows) {
+    const seen = new Set();
+    const unknown = [];
+    rows.forEach(r => {
+        if (r.question && !seen.has(r.question)) {
+            seen.add(r.question);
+            if (!VALID_QUESTIONS.has(r.question)) unknown.push(r.question);
+        }
+    });
+    return unknown;
 }
 
 function findCol(header, candidates) {
@@ -522,12 +599,29 @@ function processCSV(filename, text) {
         alert(`"${filename}" doesn't look like a valid Compass CSV.\nExpected columns: Category, Answer.`);
         return;
     }
-    const scores = computeScores(rows);
+
+    // Version validation: every question must exist in the authoritative list
+    const unknown = unknownQuestions(rows);
+    if (unknown.length > 0) {
+        const list = unknown.map(q => `  • ${q}`).join('\n');
+        const proceed = confirm(
+            `"${filename}" contains ${unknown.length} question(s) not found in the current questionnaire (v0.6):\n\n${list}\n\nThis file may be from a different version. Add it anyway?`
+        );
+        if (!proceed) return;
+    }
+
     const color = PALETTE[nextId % PALETTE.length];
-    const id = nextId++;
+    const id    = nextId++;
     const label = filename.replace(/\.csv$/i, '');
-    datasets.push({ id, name: label, color, scores });
+    datasets.push({ id, name: label, color, rows });
     renderAll();
+}
+
+// ── Aggregate all loaded datasets into one score map ──────────────
+function aggregateScores() {
+    const allRows = [];
+    datasets.forEach(ds => allRows.push(...ds.rows));
+    return computeScores(allRows);
 }
 
 // ── Remove dataset ─────────────────────────────────────────────────
@@ -574,36 +668,38 @@ function renderPills() {
     });
 }
 
-// ── All category labels (union across datasets) ────────────────────
+// ── All category labels (from aggregated data) ────────────────────
 function allCategories() {
-    const set = new Set();
-    datasets.forEach(ds => Object.keys(ds.scores).forEach(c => set.add(c)));
-    return Array.from(set);
+    return Object.keys(aggregateScores());
 }
 
 // ── Radar Chart ───────────────────────────────────────────────────
 function renderChart() {
-    const cats = allCategories();
+    const cats   = allCategories();
+    const agg    = aggregateScores();
+    const color  = PALETTE[0];
+    const label  = datasets.length === 1
+        ? datasets[0].name
+        : `${datasets.length} results combined`;
 
-    const chartDatasets = datasets.map(ds => {
-        const values = cats.map(cat => {
-            const s = ds.scores[cat];
-            if (!s) return 0;
-            const answered = s.yes + s.no;
-            return answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
-        });
-        return {
-            label: ds.name,
-            data: values,
-            borderColor: ds.color.solid,
-            backgroundColor: ds.color.fill,
-            borderWidth: 2,
-            pointBackgroundColor: ds.color.solid,
-            pointBorderColor: ds.color.solid,
-            pointRadius: 4,
-            pointHoverRadius: 6,
-        };
+    const values = cats.map(cat => {
+        const s = agg[cat];
+        if (!s) return 0;
+        const answered = s.yes + s.no;
+        return answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
     });
+
+    const chartDatasets = [{
+        label,
+        data: values,
+        borderColor: color.solid,
+        backgroundColor: color.fill,
+        borderWidth: 2,
+        pointBackgroundColor: color.solid,
+        pointBorderColor: color.solid,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+    }];
 
     const ctx = document.getElementById('radarChart').getContext('2d');
 
@@ -633,15 +729,15 @@ function renderChart() {
                     max: 100,
                     ticks: {
                         stepSize: 25,
-                        color: '#6c6c6d',
+                        color: 'var(--color-text-secondary)',
                         backdropColor: 'transparent',
                         callback: v => v + '%',
                         font: { size: 10 }
                     },
-                    grid:       { color: 'rgba(255,255,255,0.08)' },
-                    angleLines:  { color: 'rgba(255,255,255,0.12)' },
+                    grid:       { color: 'var(--color-border-divider)', opacity: 0.2 },
+                    angleLines:  { color: 'var(--color-border-divider)', opacity: 0.3 },
                     pointLabels: {
-                        color: '#b0b3b8',
+                        color: 'var(--color-text-primary)',
                         font: { size: 12, weight: '500' }
                     }
                 }
@@ -650,48 +746,51 @@ function renderChart() {
     });
 }
 
-// ── Custom Legend ────────────────────────────────────────────────────
+// ── Custom Legend ─────────────────────────────────────────────────
 function renderLegend() {
-    chartLegend.innerHTML = datasets.map(ds => `
+    const color = PALETTE[0];
+    const label = datasets.length === 1
+        ? datasets[0].name
+        : `${datasets.length} results combined`;
+    chartLegend.innerHTML = `
         <div class="legend-item">
-            <span class="legend-dot" style="background:${ds.color.solid}"></span>
-            <span>${escHtml(ds.name)}</span>
+            <span class="legend-dot" style="background:${color.solid}"></span>
+            <span>${escHtml(label)}</span>
         </div>
-    `).join('');
+    `;
 }
 
-// ── Scores Table ────────────────────────────────────────────────────
+// ── Scores Table ─────────────────────────────────────────────────
 function renderTable() {
-    const cats = allCategories();
-
-    // Column headers: Category + one col per dataset
-    const dsHeaders = datasets.map(ds =>
-        `<th style="color:${ds.color.solid}">${escHtml(ds.name)}</th>`
-    ).join('');
+    const cats  = allCategories();
+    const agg   = aggregateScores();
+    const color = PALETTE[0];
+    const label = datasets.length === 1
+        ? datasets[0].name
+        : `${datasets.length} results combined`;
 
     const rows = cats.map(cat => {
-        const cells = datasets.map(ds => {
-            const s = ds.scores[cat];
-            if (!s) return `<td><span class="tag-skipped">—</span></td>`;
+        const s = agg[cat];
+        if (!s) return `<tr><td>${escHtml(cat)}</td><td><span class="tag-skipped">—</span></td></tr>`;
 
-            const answered = s.yes + s.no;
-            const isSkipped = s.skipped > 0 && answered === 0;
-            if (isSkipped) return `<td><span class="tag-skipped">Skipped</span></td>`;
+        const answered = s.yes + s.no;
+        const isSkipped = s.skipped > 0 && answered === 0;
+        if (isSkipped) return `<tr><td>${escHtml(cat)}</td><td><span class="tag-skipped">Skipped</span></td></tr>`;
 
-            const pct = answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
-            return `
+        const pct = answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
+        return `
+            <tr>
+                <td>${escHtml(cat)}</td>
                 <td>
                     <div class="score-bar-wrap">
                         <div class="score-bar-track">
-                            <div class="score-bar-fill" style="width:${pct}%; background:${ds.color.solid}"></div>
+                            <div class="score-bar-fill" style="width:${pct}%; background:${color.solid}"></div>
                         </div>
-                        <span class="score-pct" style="color:${ds.color.solid}">${pct}%</span>
+                        <span class="score-pct" style="color:${color.solid}">${pct}%</span>
                     </div>
                 </td>
-            `;
-        }).join('');
-
-        return `<tr><td>${escHtml(cat)}</td>${cells}</tr>`;
+            </tr>
+        `;
     }).join('');
 
     scoresTableWrap.innerHTML = `
@@ -699,7 +798,7 @@ function renderTable() {
             <thead>
                 <tr>
                     <th>Category</th>
-                    ${dsHeaders}
+                    <th style="color:${color.solid}">${escHtml(label)}</th>
                 </tr>
             </thead>
             <tbody>${rows}</tbody>

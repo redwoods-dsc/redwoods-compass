@@ -1,0 +1,45 @@
+:root {
+    /* Color Tokens */
+    --color-background-canvas: #f9f4ef;
+    --color-background-surface: #ffffff;
+    --color-background-surface-subtle: rgba(255, 255, 255, 0.5);
+    
+    --color-text-primary: #444444;
+    --color-text-secondary: #666666;
+    --color-text-muted: #666666;
+    --color-text-inverse: #ffffff;
+    --color-text-link: #004984;
+    
+    --color-border-divider: #808080;
+    
+    --color-action-primary-background: #004984;
+    --color-action-primary-background-hover: rgba(0, 73, 132, 0.9);
+    --color-action-selection-background: #b3d4fd;
+
+    /* Typography Tokens */
+    --font-family-body: "Source Serif", serif;
+    --font-family-heading: "Source Serif", serif;
+    
+    --font-weight-body: 400;
+    --font-weight-heading: 400;
+    
+    --font-size-base: 18px;
+    --font-size-body-fluid: 1em;
+    --font-size-body: 0.9em;
+    --font-size-heading-1: 1.6em;
+    --font-size-heading-2: 1.3em;
+    --font-size-heading-3: 1.1em;
+    --font-size-nav: 16px;
+    --font-size-small: 0.88em;
+
+    --line-height-body: 1.45;
+    --line-height-heading: 1.2;
+}
+
+html {
+    font-size: var(--font-size-base);
+}
+
+body {
+    font-size: var(--font-size-body-fluid);
+}

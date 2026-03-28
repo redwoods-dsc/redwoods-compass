@@ -29,9 +29,9 @@
                 "$description": "Secondary or supplemental text"
             },
             "muted": {
-                "$value": "{color.neutral.400}",
+                "$value": "{color.neutral.700}",
                 "$type": "color",
-                "$description": "Muted text or placeholders"
+                "$description": "Muted text or placeholders — uses neutral.700 (#666666) to meet WCAG AA (4.5:1) on both canvas and surface backgrounds"
             },
             "inverse": {
                 "$value": "{color.neutral.0}",
@@ -114,6 +114,11 @@
             "nav": {
                 "$value": "{fontSize.nav}",
                 "$type": "fontSize"
+            },
+            "small": {
+                "$value": "{fontSize.sm-4}",
+                "$type": "fontSize",
+                "$description": "Small text for descriptions, labels, and secondary UI elements (0.88em ≈ 16px at 18px base)"
             }
         },
         "leading": {

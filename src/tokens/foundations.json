@@ -113,9 +113,9 @@
             "$description": "Root/html base font size — 18px static, before fluid scaling"
         },
         "body-fluid": {
-            "$value": "calc(125% + 0.8vw)",
+            "$value": "calc(100% + 0.8vw)",
             "$type": "fontSize",
-            "$description": "Fluid body font size applied to <body> — scales with viewport width (125% of 18px base + 0.8vw)"
+            "$description": "Fluid body font size applied to <body> — scales with viewport width (100% of 18px base + 0.8vw)"
         },
         "xs": {
             "$value": "0.6em",

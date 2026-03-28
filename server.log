@@ -1,0 +1,78 @@
+::1 - - [28/Mar/2026 11:29:11] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:29:22] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:29:22] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:29:22] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:34:09] "GET / HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:34:09] "GET /tokens.css HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:34:09] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:34:11] "GET / HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:38:39] "GET / HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:38:40] "GET /tokens.css HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:38:40] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:38:44] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:38:44] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:38:44] "GET /script.js HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:38:44] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:38:44] code 404, message File not found
+::1 - - [28/Mar/2026 11:38:44] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 11:48:24] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:48:24] "GET /script.js HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 11:48:24] "GET /tokens.css HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 11:48:24] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:32:58] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:32:58] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:32:58] "GET /script.js HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:32:59] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:33:12] code 404, message File not found
+::1 - - [28/Mar/2026 13:33:12] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:34:23] code 404, message File not found
+::1 - - [28/Mar/2026 13:34:23] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:38:36] "GET / HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:38:51] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:38:51] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:38:51] "GET /script.js HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:38:52] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:38:52] code 404, message File not found
+::1 - - [28/Mar/2026 13:38:52] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:43:17] "GET / HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:43:17] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:43:21] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:43:21] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:43:21] "GET /script.js HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:43:21] code 404, message File not found
+::1 - - [28/Mar/2026 13:43:21] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:43:21] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:43:35] "GET /tokens.css HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:43:35] code 404, message File not found
+::1 - - [28/Mar/2026 13:43:35] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:47:55] "GET / HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:47:55] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:48:08] "GET /tokens.css HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:48:08] code 404, message File not found
+::1 - - [28/Mar/2026 13:48:08] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:48:17] code 404, message File not found
+::1 - - [28/Mar/2026 13:48:17] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:52:09] "GET / HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 13:52:09] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:52:16] "GET / HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:52:16] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:52:16] "GET /script.js HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:52:16] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:52:16] code 404, message File not found
+::1 - - [28/Mar/2026 13:52:16] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 13:53:24] "GET /visualization.html HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 13:53:24] "GET /tokens.css HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 14:02:03] "GET /visualization.html HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 14:02:03] "GET /tokens.css HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 14:22:01] "GET /visualization.html HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 14:22:01] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 14:22:01] code 404, message File not found
+::1 - - [28/Mar/2026 14:22:01] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [28/Mar/2026 14:22:03] "GET /index.html HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 14:22:03] "GET /script.js HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 14:22:04] "GET /src/redwoods_compass_questions_v0.6.json HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 14:23:26] "GET /visualization.html HTTP/1.1" 304 -
+::1 - - [28/Mar/2026 14:34:36] "GET /visualization.html HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 14:34:36] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [28/Mar/2026 14:34:36] code 404, message File not found
+::1 - - [28/Mar/2026 14:34:36] "GET /favicon.ico HTTP/1.1" 404 -

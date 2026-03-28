@@ -5,7 +5,10 @@
       "Bash(curl -fsSL https://claude.ai/install.sh)",
       "Bash(bash)",
       "Bash(npm uninstall:*)",
-      "Bash(source ~/.zshrc)"
+      "Bash(source ~/.zshrc)",
+      "Bash(mkdir -p \"/Users/Nubeh/Library/CloudStorage/GoogleDrive-robin.dicapua@gmail.com/My Drive/Projects Google Drive/Redwoods/Project Redwoods Compass/Redwoods Compass /.claude/skills/sync-questionnaire\")",
+      "Bash(mv \"/Users/Nubeh/Library/CloudStorage/GoogleDrive-robin.dicapua@gmail.com/My Drive/Projects Google Drive/Redwoods/Project Redwoods Compass/Redwoods Compass /.claude/commands/sync-questionnaire.md\" \"/Users/Nubeh/Library/CloudStorage/GoogleDrive-robin.dicapua@gmail.com/My Drive/Projects Google Drive/Redwoods/Project Redwoods Compass/Redwoods Compass /.claude/skills/sync-questionnaire/SKILL.md\")",
+      "Bash(rmdir \"/Users/Nubeh/Library/CloudStorage/GoogleDrive-robin.dicapua@gmail.com/My Drive/Projects Google Drive/Redwoods/Project Redwoods Compass/Redwoods Compass /.claude/commands\")"
     ]
   }
 }

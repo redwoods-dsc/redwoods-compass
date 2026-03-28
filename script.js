@@ -223,10 +223,10 @@ function updateCategoryCounters() {
         const counterContainer = document.querySelector(`.cat-counter[data-cat="${escapeHtml(cat)}"]`);
         if (counterContainer) {
             if (isSkippedCat) {
-                counterContainer.innerHTML = `<span class="italic text-[#b0b3b8]">Skipped</span>`;
+                counterContainer.innerHTML = `<span class="italic text-muted">Skipped</span>`;
             } else {
                 counterContainer.innerHTML = `
-                    <span class="font-medium px-3 py-1 rounded-full ${isComplete ? 'bg-[#1877f2]/20 text-[#1877f2]' : 'bg-[#3a3b3c] text-[#e4e6ea]'} flex items-center gap-1.5 transition-colors">
+                    <span class="font-medium px-3 py-1 rounded-full ${isComplete ? 'bg-selection text-link' : 'bg-canvas text-secondary border border-divider'} flex items-center gap-1.5 transition-colors">
                         ${answeredCatQuestions} / ${totalCatQuestions} ${isComplete ? 'Completed' : 'Answered'}
                         ${isComplete ? '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>' : ''}
                     </span>
@@ -347,11 +347,11 @@ function renderQuestionItem(q) {
 
     // Follow-up visual treatment: left border, tinted bg, animation only on first reveal
     const followUpClass = isFollowUp
-        ? `border-l-2 border-l-[#1877f2] bg-[#1877f2]/5${isNewlyRevealed ? ' followup-question' : ''}`
+        ? `border-l-2 border-l-action bg-canvas${isNewlyRevealed ? ' followup-question' : ''}`
         : '';
     const followUpBadge = isFollowUp
         ? `<div class="mb-2 flex items-center gap-1">
-               <span class="inline-flex items-center gap-1 text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-[#1877f2]/15 text-[#6fa8f5] select-none">
+               <span class="inline-flex items-center gap-1 text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-selection text-link select-none">
                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
                    Follow-up
                </span>
@@ -359,27 +359,27 @@ function renderQuestionItem(q) {
         : '';
     
     return `
-        <div id="qitem_${q.id}" class="p-4 border-b border-[#3a3b3c] ${followUpClass} ${isSkipped ? 'opacity-50' : ''}">
+        <div id="qitem_${q.id}" class="p-4 border-b border-divider ${followUpClass} ${isSkipped ? 'opacity-50' : ''}">
             ${followUpBadge}
             <div class="flex items-start gap-2">
-                <span class="flex-1 text-[#e4e6ea]">${escapeHtml(q.question)}</span>
+                <span class="flex-1 text-primary">${escapeHtml(q.question)}</span>
                 ${q.infotip ? `
-                    <button id="info_${q.id}" class="info-tip-icon w-6 h-6 rounded-full bg-[#1877f2] text-white flex shrink-0 items-center justify-center transition-opacity hover:opacity-80" data-id="${q.id}">
+                    <button id="info_${q.id}" class="info-tip-icon w-6 h-6 rounded-full bg-action text-inverse flex shrink-0 items-center justify-center transition-opacity hover:opacity-80" data-id="${q.id}">
                         ${InfoIcon}
                     </button>
                 ` : ''}
             </div>
-            ${q.description ? `<p class="mt-2 text-sm italic text-[#b0b3b8]">${escapeHtml(q.description)}</p>` : ''}
+            ${q.description ? `<p class="mt-2 text-small italic text-muted">${escapeHtml(q.description)}</p>` : ''}
             <div class="mt-3 flex gap-6 flex-wrap items-center">
                 <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" class="radio-btn accent-[#1877f2]" name="q_${q.id}" value="Yes" data-id="${q.id}" ${yesChecked} />
+                    <input type="radio" class="radio-btn accent-[var(--color-action-primary-background)]" name="q_${q.id}" value="Yes" data-id="${q.id}" ${yesChecked} />
                     <span>Yes</span>
                 </label>
                 <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" class="radio-btn accent-[#1877f2]" name="q_${q.id}" value="No" data-id="${q.id}" ${noChecked} />
+                    <input type="radio" class="radio-btn accent-[var(--color-action-primary-background)]" name="q_${q.id}" value="No" data-id="${q.id}" ${noChecked} />
                     <span>No</span>
                 </label>
-                <button class="skip-btn ml-auto text-xs underline hover:text-[#1877f2]" data-id="${q.id}">
+                <button class="skip-btn ml-auto text-small underline text-muted hover:text-link" data-id="${q.id}">
                     ${isSkipped ? 'Unskip' : 'Skip'}
                 </button>
             </div>
@@ -410,7 +410,7 @@ function render() {
                 let hasVisibleQuestions = false;
                 
                 if (sub) {
-                    subHtml += `<div class="px-4 py-2 bg-[#343536] text-[#e0e0e0] text-[15px] font-medium">${escapeHtml(sub)}</div>`;
+                    subHtml += `<div class="px-4 py-2 bg-canvas text-primary text-h3 font-heading leading-heading border-b border-divider">${escapeHtml(sub)}</div>`;
                 }
                 
                 qs.forEach(q => {
@@ -436,29 +436,29 @@ function render() {
         }
 
         html += `
-            <div class="cat-container mb-6 border border-[#3a3b3c] rounded bg-[#18191a]" data-cat="${escapeHtml(cat)}">
-                <div class="p-4 bg-[#2a2b2d] flex flex-col cursor-pointer cat-header-toggle select-none rounded-t">
+            <div class="cat-container mb-6 border border-divider rounded bg-surface" data-cat="${escapeHtml(cat)}">
+                <div class="p-4 bg-canvas flex flex-col cursor-pointer cat-header-toggle select-none rounded-t">
                     <div class="flex items-center gap-3">
-                        <h2 class="font-semibold transition-colors ${isSkippedCat ? 'line-through text-[#6c6c6d]' : ''}">
+                        <h2 class="text-h2 font-heading leading-heading transition-colors ${isSkippedCat ? 'line-through text-muted' : ''}">
                             ${escapeHtml(cat)}
                         </h2>
                         <div class="flex-1"></div>
-                        <button class="skip-cat-btn text-xs underline z-10 hover:text-[#1877f2] text-[#b0b3b8]" data-cat="${escapeHtml(cat)}">
+                        <button class="skip-cat-btn text-small underline z-10 hover:text-link text-muted" data-cat="${escapeHtml(cat)}">
                             ${isSkippedCat ? 'Unskip' : 'Skip'} Category
                         </button>
-                        <div class="toggle-cat-btn p-1 transition-transform duration-200 text-[#b0b3b8]">
+                        <div class="toggle-cat-btn p-1 transition-transform duration-200 text-muted">
                             <span class="inline-block transform transition-transform duration-200 ${isExpanded ? '' : 'rotate-180'}">
                                 ${ChevronDownIcon}
                             </span>
                         </div>
                     </div>
-                    ${data.desc ? `<p class="mt-2 text-sm text-[#cfcfcf] italic">${escapeHtml(data.desc)}</p>` : ''}
+                    ${data.desc ? `<p class="mt-2 text-small text-secondary italic">${escapeHtml(data.desc)}</p>` : ''}
                 </div>
-                <div class="cat-body ${isExpanded ? '' : 'hidden'} bg-[#18191a]">
+                <div class="cat-body ${isExpanded ? '' : 'hidden'} bg-surface">
                     ${questionsHtml}
                 </div>
-                <div class="px-4 py-3 border-t border-[#3a3b3c] flex justify-between items-center text-sm rounded-b bg-[#242526]">
-                    <span class="text-[#b0b3b8]">Category Status</span>
+                <div class="px-4 py-3 border-t border-divider flex justify-between items-center text-small rounded-b bg-canvas">
+                    <span class="text-muted">Category Status</span>
                     <div class="cat-counter" data-cat="${escapeHtml(cat)}"></div>
                 </div>
             </div>
