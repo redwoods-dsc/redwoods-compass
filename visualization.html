@@ -39,49 +39,30 @@
             color: var(--text-primary);
             font-family: var(--font-family-body);
             min-height: 100vh;
+            overflow-y: scroll; /* Forces scrollbar to prevent horizontal jump */
+        }
+
+        /* Custom scrollbars to match index.html */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-background-surface); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border-divider); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-muted); 
         }
 
         /* ── Layout ───────────────────────────────────────────────── */
-        .page-header {
-            background: var(--bg-header);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .page-header h1 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-
-        .page-header .subtitle {
-            color: var(--text-mute);
-            font-size: 0.85rem;
-        }
-
-        .back-link {
-            margin-left: auto;
-            color: var(--blue);
-            text-decoration: none;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            opacity: 0.9;
-            transition: opacity 0.15s;
-        }
-        .back-link:hover { opacity: 1; }
-
         .main-content {
             max-width: 960px;
             margin: 0 auto;
-            padding: 28px 20px 60px;
+            padding: 18px 20px 60px;
         }
 
         /* ── Upload Zone ──────────────────────────────────────────── */
@@ -181,16 +162,19 @@
         /* ── Empty State ──────────────────────────────────────────── */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 20px 20px 40px;
             color: var(--text-mute);
         }
-        .empty-state svg {
+        .empty-state img {
             width: 64px;
             height: 64px;
             margin: 0 auto 16px;
             opacity: 0.3;
+            display: block;
         }
-        .empty-state p { font-size: 0.9rem; }
+        .empty-state p { font-size: 0.95rem; line-height: 1.5; }
+        .empty-state a { color: var(--blue); text-decoration: none; }
+        .empty-state a:hover { text-decoration: underline; }
 
         /* ── Chart Card ───────────────────────────────────────────── */
         .chart-card {
@@ -313,26 +297,19 @@
 </head>
 <body>
 
-<!-- ── Header ─────────────────────────────────────────────────────── -->
-<header class="page-header">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-link)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-    </svg>
-    <div>
-        <h1>Compass Results Visualizer</h1>
-        <div class="subtitle">Upload CSV results to compare assessments</div>
-    </div>
-    <a href="index.html" class="back-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
-        </svg>
-        Back to Questionnaire
-    </a>
-</header>
-
 <!-- ── Main ───────────────────────────────────────────────────────── -->
 <main class="main-content">
+
+    <!-- Header / Logo -->
+    <div style="display: flex; justify-content: center; margin-top: 18px; margin-bottom: 36px;">
+        <img src="resources/logo.svg" alt="Redwoods Compass Logo" style="height: 72px;" />
+    </div>
+
+    <!-- Empty state (shown before upload) -->
+    <div id="emptyState" class="empty-state">
+        <img src="resources/trees.svg" alt="Trees icon" />
+        <p>This page is to visualize the results from the <br><a href="index.html">Redwoods Compass Questionnaire</a>.</p>
+    </div>
 
     <!-- Upload -->
     <section class="upload-section">
@@ -370,15 +347,6 @@
             <div id="scoresTableWrap"></div>
         </div>
 
-    </div>
-
-    <!-- Empty state (shown before upload) -->
-    <div id="emptyState" class="empty-state">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-        </svg>
-        <p>Upload a CSV file exported from the questionnaire<br>to see your results visualized here.</p>
     </div>
 
 </main>

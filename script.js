@@ -15,6 +15,7 @@ let animatedFollowUps = new Set(); // tracks follow-ups that have already played
 const toggleSubEl = document.getElementById('toggleSub');
 const categoriesContainer = document.getElementById('categoriesContainer');
 const exportCsvBtn = document.getElementById('exportCsvBtn');
+const resetBtn = document.getElementById('resetBtn');
 const progressText = document.getElementById('progressText');
 const progressBar = document.getElementById('progressBar');
 const tooltipEl = document.getElementById('tooltip');
@@ -26,6 +27,19 @@ const ChevronDownIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" heig
 
 // --- Initialize ---
 async function init() {
+    try {
+        const savedState = localStorage.getItem('compassState');
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            answers = state.answers || {};
+            skippedCats = new Set(state.skippedCats || []);
+            showSub = state.showSub || false;
+            if (toggleSubEl) toggleSubEl.checked = showSub;
+        }
+    } catch (e) {
+        console.error('Failed to load saved state:', e);
+    }
+
     try {
         const res = await fetch(QUESTIONS_FILE_URL);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -42,10 +56,12 @@ async function init() {
     // Event Listeners for global elements
     toggleSubEl.addEventListener('change', (e) => {
         showSub = e.target.checked;
+        saveState();
         render();
     });
 
     exportCsvBtn.addEventListener('click', exportCSV);
+    if (resetBtn) resetBtn.addEventListener('click', resetAll);
 
     // Document click to close tooltip if clicking outside
     document.addEventListener('click', (e) => {
@@ -245,6 +261,7 @@ function setAnswer(id, val) {
         answers[id] = val;
     }
     
+    saveState();
     updateVisibleQuestions();
     calculateProgress();
     updateCategoryCounters();
@@ -304,6 +321,7 @@ function toggleSkipCat(cat) {
             answers[id] = 'Skipped';
         });
     }
+    saveState();
     updateVisibleQuestions();
     render();
 }
@@ -579,6 +597,24 @@ function exportCSV() {
     a.download = 'results.csv';
     a.click();
     URL.revokeObjectURL(url);
+}
+
+function saveState() {
+    localStorage.setItem('compassState', JSON.stringify({
+        answers,
+        skippedCats: Array.from(skippedCats),
+        showSub
+    }));
+}
+
+function resetAll() {
+    if (confirm("Are you sure you want to reset all answers?")) {
+        answers = {};
+        skippedCats = new Set();
+        localStorage.removeItem('compassState');
+        updateVisibleQuestions();
+        render();
+    }
 }
 
 // Start Application

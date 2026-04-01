@@ -57,6 +57,7 @@
             font-family: var(--font-family-body);
             margin: 0;
             padding: 0;
+            overflow-y: scroll; /* Forces scrollbar to prevent horizontal jump */
         }
         /* Custom scrollbar for tooltips */
         ::-webkit-scrollbar {
@@ -93,7 +94,11 @@
 <body>
     <div id="app" class="w-full min-h-screen bg-canvas">
         <div class="max-w-3xl mx-auto p-4">
-            
+            <!-- Logo -->
+            <div class="flex justify-center mb-8 mt-4">
+                <img src="resources/logo.svg" alt="Redwoods Compass Logo" class="h-16" />
+            </div>
+
             <!-- Controls -->
             <div class="sticky top-0 z-50 bg-canvas pt-2 pb-4 mb-6 border-b border-divider">
                 <div class="flex items-center gap-4 mb-4">
@@ -107,10 +112,6 @@
                     </label>
 
                     <div class="ml-auto flex items-center gap-4">
-                        <a href="visualization.html" class="text-sm text-link hover:underline flex items-center gap-1.5">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            Visualize Results
-                        </a>
                         <div class="text-sm font-medium"><span id="progressText">0</span>% complete</div>
                     </div>
                 </div>
@@ -124,10 +125,19 @@
                 <!-- Categories will be injected here by JS -->
             </div>
 
-            <!-- Export Button -->
-            <button id="exportCsvBtn" class="mt-8 px-6 py-3 bg-action text-inverse rounded hover:opacity-80 transition-opacity" disabled>
+        <!-- Actions -->
+        <div class="mt-8 mb-16 flex gap-4">
+            <button id="exportCsvBtn" class="h-12 px-6 bg-action text-inverse rounded hover:opacity-80 transition-opacity font-medium flex items-center justify-center" disabled>
                 Download CSV
             </button>
+            <a href="visualization.html" class="h-12 px-6 border border-divider text-primary rounded hover:bg-surface-subtle transition-colors flex items-center justify-center gap-2 font-medium">
+                <img src="resources/trees.svg" alt="Trees icon" class="w-[18px] h-[18px] object-contain" />
+                Visualize Results
+            </a>
+            <button id="resetBtn" class="h-12 px-6 border border-divider text-muted rounded hover:bg-surface-subtle transition-colors font-medium flex items-center justify-center ml-auto">
+                Reset
+            </button>
+        </div>
         </div>
     </div>
 
