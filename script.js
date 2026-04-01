@@ -589,12 +589,22 @@ function exportCSV() {
         }
     });
 
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timestamp = `${year}${month}${day}_${hours}${minutes}${seconds}`;
+    const randomSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
+
     const csvContent = head + rows.join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'results.csv';
+    a.download = `results_${timestamp}_${randomSuffix}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 }
