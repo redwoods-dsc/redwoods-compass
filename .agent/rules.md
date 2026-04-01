@@ -1,1 +1,3 @@
 When interacting with any questionnaire JSON file (e.g., src/redwoods_compass_questions*.json) or modifying any project JSON files, you MUST ALWAYS automatically call the update-json-changelog workflow (located at .agent/workflows/update-json-changelog.md) afterward to make sure docs/json-changelog.md is kept up to date.
+
+If the user asks to add a question that is already present in the questionnaire, you MUST first inform the user that the question already exists and ask them if they still want to proceed or if they would like to refine their query. Do not automatically add or modify the existing question without user confirmation.
