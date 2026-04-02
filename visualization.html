@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compass Results Visualizer</title>
+    <title>Redwoods Compass: Results</title>
+    <meta property="og:title" content="Redwoods Compass: Results">
     <link rel="stylesheet" href="tokens.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     <style>
         /* ── Reset & Base ─────────────────────────────────────────── */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
-            --bg-primary:   var(--color-background-canvas);
-            --bg-card:      var(--color-background-surface);
-            --bg-header:    var(--color-background-surface);
-            --bg-input:     var(--color-background-canvas);
-            --border:       var(--color-border-divider);
+            --bg-primary: var(--color-background-canvas);
+            --bg-card: var(--color-background-surface);
+            --bg-header: var(--color-background-surface);
+            --bg-input: var(--color-background-canvas);
+            --border: var(--color-border-divider);
             --text-primary: var(--color-text-primary);
-            --text-mute:    var(--color-text-secondary);
-            --text-dim:     var(--color-text-muted);
-            --blue:         var(--color-text-link);
-            --green:        #27ae60;
-            --red:          #e74c3c;
+            --text-mute: var(--color-text-secondary);
+            --text-dim: var(--color-text-muted);
+            --blue: var(--color-text-link);
+            --green: #27ae60;
+            --red: #e74c3c;
 
             /* Dataset colour palette */
             --ds0: var(--color-text-link);
@@ -39,7 +47,8 @@
             color: var(--text-primary);
             font-family: var(--font-family-body);
             min-height: 100vh;
-            overflow-y: scroll; /* Forces scrollbar to prevent horizontal jump */
+            overflow-y: scroll;
+            /* Forces scrollbar to prevent horizontal jump */
         }
 
         /* Custom scrollbars to match index.html */
@@ -47,15 +56,18 @@
             width: 8px;
             height: 8px;
         }
+
         ::-webkit-scrollbar-track {
-            background: var(--color-background-surface); 
+            background: var(--color-background-surface);
         }
+
         ::-webkit-scrollbar-thumb {
-            background: var(--color-border-divider); 
+            background: var(--color-border-divider);
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--color-text-muted); 
+            background: var(--color-text-muted);
         }
 
         /* ── Layout ───────────────────────────────────────────────── */
@@ -66,7 +78,9 @@
         }
 
         /* ── Upload Zone ──────────────────────────────────────────── */
-        .upload-section { margin-bottom: 28px; }
+        .upload-section {
+            margin-bottom: 28px;
+        }
 
         .upload-zone {
             border: 2px dashed var(--border);
@@ -78,10 +92,13 @@
             background: var(--bg-card);
             position: relative;
         }
-        .upload-zone:hover, .upload-zone.drag-over {
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
             border-color: var(--blue);
             background: rgba(0, 73, 132, 0.06);
         }
+
         .upload-zone input[type="file"] {
             position: absolute;
             inset: 0;
@@ -97,15 +114,18 @@
             margin: 0 auto 12px;
             color: var(--text-mute);
         }
+
         .upload-zone h2 {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 6px;
         }
+
         .upload-zone p {
             color: var(--text-mute);
             font-size: 0.85rem;
         }
+
         .upload-zone .hint {
             margin-top: 8px;
             font-size: 0.78rem;
@@ -157,7 +177,10 @@
             line-height: 1;
             transition: color 0.15s;
         }
-        .dataset-pill .ds-remove:hover { color: var(--red); }
+
+        .dataset-pill .ds-remove:hover {
+            color: var(--red);
+        }
 
         /* ── Empty State ──────────────────────────────────────────── */
         .empty-state {
@@ -165,6 +188,7 @@
             padding: 20px 20px 40px;
             color: var(--text-mute);
         }
+
         .empty-state img {
             width: 64px;
             height: 64px;
@@ -172,9 +196,20 @@
             opacity: 0.3;
             display: block;
         }
-        .empty-state p { font-size: 0.95rem; line-height: 1.5; }
-        .empty-state a { color: var(--blue); text-decoration: none; }
-        .empty-state a:hover { text-decoration: underline; }
+
+        .empty-state p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .empty-state a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .empty-state a:hover {
+            text-decoration: underline;
+        }
 
         /* ── Chart Card ───────────────────────────────────────────── */
         .chart-card {
@@ -218,6 +253,7 @@
             border-collapse: collapse;
             font-size: 0.865rem;
         }
+
         thead th {
             background: var(--bg-header);
             color: var(--text-mute);
@@ -228,18 +264,26 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
         tbody td {
             padding: 10px 16px;
             border-bottom: 1px solid var(--border);
         }
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
 
         .score-bar-wrap {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         .score-bar-track {
             flex: 1;
             height: 6px;
@@ -247,11 +291,13 @@
             border-radius: 4px;
             overflow: hidden;
         }
+
         .score-bar-fill {
             height: 100%;
             border-radius: 4px;
             transition: width 0.5s ease;
         }
+
         .score-pct {
             font-size: 0.82rem;
             font-weight: 600;
@@ -273,6 +319,7 @@
             gap: 14px;
             margin-top: 18px;
         }
+
         .legend-item {
             display: flex;
             align-items: center;
@@ -280,6 +327,7 @@
             font-size: 0.82rem;
             color: var(--text-mute);
         }
+
         .legend-dot {
             width: 10px;
             height: 10px;
@@ -289,291 +337,304 @@
 
         /* ── Animations ───────────────────────────────────────────── */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .chart-section { animation: fadeIn 0.3s ease; }
+
+        .chart-section {
+            animation: fadeIn 0.3s ease;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- ── Main ───────────────────────────────────────────────────────── -->
-<main class="main-content">
+    <!-- ── Main ───────────────────────────────────────────────────────── -->
+    <main class="main-content">
 
-    <!-- Header / Logo -->
-    <div style="display: flex; justify-content: center; margin-top: 18px; margin-bottom: 36px;">
-        <img src="resources/logo.svg" alt="Redwoods Compass Logo" style="height: 72px;" />
-    </div>
-
-    <!-- Empty state (shown before upload) -->
-    <div id="emptyState" class="empty-state">
-        <img src="resources/trees.svg" alt="Trees icon" />
-        <p>This page is to visualize the results from the <br><a href="index.html">Redwoods Compass Questionnaire</a>.</p>
-    </div>
-
-    <!-- Upload -->
-    <section class="upload-section">
-        <div class="upload-zone" id="uploadZone">
-            <input type="file" id="fileInput" accept=".csv" multiple>
-            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="17 8 12 3 7 8"/>
-                <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
-            <h2>Upload CSV Results</h2>
-            <p>Drag & drop one or more CSV files, or click to browse</p>
-            <p class="hint">CSV must be exported from the Redwoods Compass Questionnaire</p>
+        <!-- Header / Logo -->
+        <div style="display: flex; justify-content: center; margin-top: 18px; margin-bottom: 36px;">
+            <img src="resources/logo.svg" alt="Redwoods Compass Logo" style="height: 72px;" />
         </div>
 
-        <!-- Dataset pills -->
-        <div class="datasets-list" id="datasetsList"></div>
-    </section>
+        <!-- Empty state (shown before upload) -->
+        <div id="emptyState" class="empty-state">
+            <img src="resources/trees.svg" alt="Trees icon" />
+            <p>This page is to visualize the results from the <br><a href="index.html">Redwoods Compass
+                    Questionnaire</a>.</p>
+        </div>
 
-    <!-- Chart + table (hidden until data loaded) -->
-    <div id="vizSection" style="display:none;" class="chart-section">
-
-        <!-- Radar Chart -->
-        <div class="chart-card">
-            <h2>Category Scores — Spider Chart</h2>
-            <div class="chart-wrapper">
-                <canvas id="radarChart"></canvas>
+        <!-- Upload -->
+        <section class="upload-section">
+            <div class="upload-zone" id="uploadZone">
+                <input type="file" id="fileInput" accept=".csv" multiple>
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+                <h2>Upload CSV Results</h2>
+                <p>Drag & drop one or more CSV files, or click to browse</p>
+                <p class="hint">CSV must be exported from the Redwoods Compass Questionnaire</p>
             </div>
-            <div class="chart-legend" id="chartLegend"></div>
+
+            <!-- Dataset pills -->
+            <div class="datasets-list" id="datasetsList"></div>
+        </section>
+
+        <!-- Chart + table (hidden until data loaded) -->
+        <div id="vizSection" style="display:none;" class="chart-section">
+
+            <!-- Radar Chart -->
+            <div class="chart-card">
+                <h2>Category Scores — Spider Chart</h2>
+                <div class="chart-wrapper">
+                    <canvas id="radarChart"></canvas>
+                </div>
+                <div class="chart-legend" id="chartLegend"></div>
+            </div>
+
+            <!-- Scores table -->
+            <div class="scores-card">
+                <h2>Category Breakdown</h2>
+                <div id="scoresTableWrap"></div>
+            </div>
+
         </div>
 
-        <!-- Scores table -->
-        <div class="scores-card">
-            <h2>Category Breakdown</h2>
-            <div id="scoresTableWrap"></div>
-        </div>
+    </main>
 
-    </div>
+    <script>
+        let VALID_QUESTIONS = new Set();
 
-</main>
+        // Fetch the questions dynamically to ensure they stay up-to-date
+        fetch('src/redwoods_compass_questions_v0.6.json')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(category => {
+                    if (category.Questions) {
+                        category.Questions.forEach(q => VALID_QUESTIONS.add(q.Question));
+                    }
+                });
+            })
+            .catch(e => console.error("Failed to load questions from JSON:", e));
 
-<script>
-let VALID_QUESTIONS = new Set();
+        // ── Palette ────────────────────────────────────────────────────────
+        const PALETTE = [
+            { solid: '#004984', fill: 'rgba(0,73,132,0.15)' },
+            { solid: '#27ae60', fill: 'rgba(39,174,96,0.15)' },
+            { solid: '#e67e22', fill: 'rgba(230,126,34,0.15)' },
+            { solid: '#9b59b6', fill: 'rgba(155,89,182,0.15)' },
+            { solid: '#e74c3c', fill: 'rgba(231,76,60,0.15)' },
+            { solid: '#1abc9c', fill: 'rgba(26,188,156,0.15)' },
+            { solid: '#f39c12', fill: 'rgba(243,156,18,0.15)' },
+            { solid: '#2980b9', fill: 'rgba(41,128,185,0.15)' },
+        ];
 
-// Fetch the questions dynamically to ensure they stay up-to-date
-fetch('src/redwoods_compass_questions_v0.6.json')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(category => {
-            if (category.Questions) {
-                category.Questions.forEach(q => VALID_QUESTIONS.add(q.Question));
+        // ── State ──────────────────────────────────────────────────────────
+        let datasets = [];        // [{ id, name, color, rows: [{category, question, answer, weight}] }]
+        let radarChart = null;
+        let nextId = 0;
+
+        // ── DOM ────────────────────────────────────────────────────────────
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const datasetsList = document.getElementById('datasetsList');
+        const vizSection = document.getElementById('vizSection');
+        const emptyState = document.getElementById('emptyState');
+        const chartLegend = document.getElementById('chartLegend');
+        const scoresTableWrap = document.getElementById('scoresTableWrap');
+
+        // ── Drag & drop ────────────────────────────────────────────────────
+        uploadZone.addEventListener('dragover', e => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+        uploadZone.addEventListener('drop', e => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            handleFiles(Array.from(e.dataTransfer.files));
+        });
+        fileInput.addEventListener('change', e => {
+            handleFiles(Array.from(e.target.files));
+            fileInput.value = ''; // reset so same file can be re-added
+        });
+
+        // ── File handling ──────────────────────────────────────────────────
+        function handleFiles(files) {
+            files.forEach(file => {
+                if (!file.name.toLowerCase().endsWith('.csv')) return;
+                const reader = new FileReader();
+                reader.onload = e => processCSV(file.name, e.target.result);
+                reader.readAsText(file);
+            });
+        }
+
+        // ── CSV parsing ────────────────────────────────────────────────────
+        // Expected columns: Category, Subcategory, Question, Weight, Answer
+        // Answer values: Yes | No | Skipped | (empty)
+        // Weight: 0 (excluded from chart), 0.5 (half weight), 1 (full weight — default)
+        function parseCSV(text) {
+            const lines = text.trim().split(/\r?\n/);
+            if (lines.length < 2) return null;
+
+            // Parse header to find column indices
+            const header = splitCSVLine(lines[0]).map(h => h.trim().toLowerCase());
+            const colCat = findCol(header, ['category']);
+            const colAns = findCol(header, ['answer']);
+            const colWeight = findCol(header, ['weight']);
+            const colQuestion = findCol(header, ['question']);
+
+            if (colCat === -1 || colAns === -1) return null; // unrecognised format
+
+            const rows = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                const cells = splitCSVLine(line);
+                const rawWeight = colWeight !== -1 ? (cells[colWeight] || '').trim() : '1';
+                const weight = parseFloat(rawWeight);
+                rows.push({
+                    category: (cells[colCat] || '').trim(),
+                    question: colQuestion !== -1 ? (cells[colQuestion] || '').trim() : '',
+                    answer: (cells[colAns] || '').trim(),
+                    weight: isNaN(weight) ? 1 : weight,
+                });
             }
-        });
-    })
-    .catch(e => console.error("Failed to load questions from JSON:", e));
-
-// ── Palette ────────────────────────────────────────────────────────
-const PALETTE = [
-    { solid: '#004984', fill: 'rgba(0,73,132,0.15)'    },
-    { solid: '#27ae60', fill: 'rgba(39,174,96,0.15)'   },
-    { solid: '#e67e22', fill: 'rgba(230,126,34,0.15)'  },
-    { solid: '#9b59b6', fill: 'rgba(155,89,182,0.15)'  },
-    { solid: '#e74c3c', fill: 'rgba(231,76,60,0.15)'   },
-    { solid: '#1abc9c', fill: 'rgba(26,188,156,0.15)'  },
-    { solid: '#f39c12', fill: 'rgba(243,156,18,0.15)'  },
-    { solid: '#2980b9', fill: 'rgba(41,128,185,0.15)'  },
-];
-
-// ── State ──────────────────────────────────────────────────────────
-let datasets = [];        // [{ id, name, color, rows: [{category, question, answer, weight}] }]
-let radarChart = null;
-let nextId = 0;
-
-// ── DOM ────────────────────────────────────────────────────────────
-const uploadZone    = document.getElementById('uploadZone');
-const fileInput     = document.getElementById('fileInput');
-const datasetsList  = document.getElementById('datasetsList');
-const vizSection    = document.getElementById('vizSection');
-const emptyState    = document.getElementById('emptyState');
-const chartLegend   = document.getElementById('chartLegend');
-const scoresTableWrap = document.getElementById('scoresTableWrap');
-
-// ── Drag & drop ────────────────────────────────────────────────────
-uploadZone.addEventListener('dragover', e => {
-    e.preventDefault();
-    uploadZone.classList.add('drag-over');
-});
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
-uploadZone.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadZone.classList.remove('drag-over');
-    handleFiles(Array.from(e.dataTransfer.files));
-});
-fileInput.addEventListener('change', e => {
-    handleFiles(Array.from(e.target.files));
-    fileInput.value = ''; // reset so same file can be re-added
-});
-
-// ── File handling ──────────────────────────────────────────────────
-function handleFiles(files) {
-    files.forEach(file => {
-        if (!file.name.toLowerCase().endsWith('.csv')) return;
-        const reader = new FileReader();
-        reader.onload = e => processCSV(file.name, e.target.result);
-        reader.readAsText(file);
-    });
-}
-
-// ── CSV parsing ────────────────────────────────────────────────────
-// Expected columns: Category, Subcategory, Question, Weight, Answer
-// Answer values: Yes | No | Skipped | (empty)
-// Weight: 0 (excluded from chart), 0.5 (half weight), 1 (full weight — default)
-function parseCSV(text) {
-    const lines = text.trim().split(/\r?\n/);
-    if (lines.length < 2) return null;
-
-    // Parse header to find column indices
-    const header = splitCSVLine(lines[0]).map(h => h.trim().toLowerCase());
-    const colCat      = findCol(header, ['category']);
-    const colAns      = findCol(header, ['answer']);
-    const colWeight   = findCol(header, ['weight']);
-    const colQuestion = findCol(header, ['question']);
-
-    if (colCat === -1 || colAns === -1) return null; // unrecognised format
-
-    const rows = [];
-    for (let i = 1; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (!line) continue;
-        const cells = splitCSVLine(line);
-        const rawWeight = colWeight !== -1 ? (cells[colWeight] || '').trim() : '1';
-        const weight = parseFloat(rawWeight);
-        rows.push({
-            category: (cells[colCat]      || '').trim(),
-            question: colQuestion !== -1 ? (cells[colQuestion] || '').trim() : '',
-            answer:   (cells[colAns]      || '').trim(),
-            weight:   isNaN(weight) ? 1 : weight,
-        });
-    }
-    return rows;
-}
-
-// ── Version validation ────────────────────────────────────────────
-// Returns the list of question texts in this CSV that are NOT in the
-// authoritative question set. Conditional follow-ups are included in
-// VALID_QUESTIONS, so any unrecognised question genuinely signals a
-// different questionnaire version.
-function unknownQuestions(rows) {
-    const seen = new Set();
-    const unknown = [];
-    rows.forEach(r => {
-        if (r.question && !seen.has(r.question)) {
-            seen.add(r.question);
-            if (!VALID_QUESTIONS.has(r.question)) unknown.push(r.question);
+            return rows;
         }
-    });
-    return unknown;
-}
 
-function findCol(header, candidates) {
-    for (const c of candidates) {
-        const idx = header.indexOf(c);
-        if (idx !== -1) return idx;
-    }
-    return -1;
-}
-
-// Handles quoted CSV cells
-function splitCSVLine(line) {
-    const cells = [];
-    let cur = '';
-    let inQ = false;
-    for (let i = 0; i < line.length; i++) {
-        const ch = line[i];
-        if (ch === '"') {
-            if (inQ && line[i + 1] === '"') { cur += '"'; i++; }
-            else inQ = !inQ;
-        } else if (ch === ',' && !inQ) {
-            cells.push(cur); cur = '';
-        } else {
-            cur += ch;
+        // ── Version validation ────────────────────────────────────────────
+        // Returns the list of question texts in this CSV that are NOT in the
+        // authoritative question set. Conditional follow-ups are included in
+        // VALID_QUESTIONS, so any unrecognised question genuinely signals a
+        // different questionnaire version.
+        function unknownQuestions(rows) {
+            const seen = new Set();
+            const unknown = [];
+            rows.forEach(r => {
+                if (r.question && !seen.has(r.question)) {
+                    seen.add(r.question);
+                    if (!VALID_QUESTIONS.has(r.question)) unknown.push(r.question);
+                }
+            });
+            return unknown;
         }
-    }
-    cells.push(cur);
-    return cells;
-}
 
-// ── Score calculation ─────────────────────────────────────────────
-// Score per category = weightedYes / (weightedYes + weightedNo) * 100
-// Questions with weight:0 are recorded in the CSV but excluded from the chart.
-// Questions with weight:0.5 count as half a vote in either direction.
-// Falls back to weight:1 if the CSV has no Weight column (backwards compatible).
-function computeScores(rows) {
-    const cats = {};
-    rows.forEach(({ category, answer, weight }) => {
-        if (!category) return;
-        if (!cats[category]) cats[category] = { yes: 0, no: 0, skipped: 0, unanswered: 0 };
-        const w   = weight ?? 1;
-        const ans = answer.toLowerCase();
-        if (ans === 'yes')          cats[category].yes       += w;
-        else if (ans === 'no')      cats[category].no        += w;
-        else if (ans === 'skipped') cats[category].skipped   += w;
-        else                        cats[category].unanswered += w;
-    });
-    return cats;
-}
+        function findCol(header, candidates) {
+            for (const c of candidates) {
+                const idx = header.indexOf(c);
+                if (idx !== -1) return idx;
+            }
+            return -1;
+        }
 
-// ── Process one CSV file ──────────────────────────────────────────
-function processCSV(filename, text) {
-    const rows = parseCSV(text);
-    if (!rows) {
-        alert(`"${filename}" doesn't look like a valid Compass CSV.\nExpected columns: Category, Answer.`);
-        return;
-    }
+        // Handles quoted CSV cells
+        function splitCSVLine(line) {
+            const cells = [];
+            let cur = '';
+            let inQ = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"') {
+                    if (inQ && line[i + 1] === '"') { cur += '"'; i++; }
+                    else inQ = !inQ;
+                } else if (ch === ',' && !inQ) {
+                    cells.push(cur); cur = '';
+                } else {
+                    cur += ch;
+                }
+            }
+            cells.push(cur);
+            return cells;
+        }
 
-    // Version validation: every question must exist in the authoritative list
-    const unknown = unknownQuestions(rows);
-    if (unknown.length > 0) {
-        const list = unknown.map(q => `  • ${q}`).join('\n');
-        const proceed = confirm(
-            `"${filename}" contains ${unknown.length} question(s) not found in the current questionnaire (v0.6):\n\n${list}\n\nThis file may be from a different version. Add it anyway?`
-        );
-        if (!proceed) return;
-    }
+        // ── Score calculation ─────────────────────────────────────────────
+        // Score per category = weightedYes / (weightedYes + weightedNo) * 100
+        // Questions with weight:0 are recorded in the CSV but excluded from the chart.
+        // Questions with weight:0.5 count as half a vote in either direction.
+        // Falls back to weight:1 if the CSV has no Weight column (backwards compatible).
+        function computeScores(rows) {
+            const cats = {};
+            rows.forEach(({ category, answer, weight }) => {
+                if (!category) return;
+                if (!cats[category]) cats[category] = { yes: 0, no: 0, skipped: 0, unanswered: 0 };
+                const w = weight ?? 1;
+                const ans = answer.toLowerCase();
+                if (ans === 'yes') cats[category].yes += w;
+                else if (ans === 'no') cats[category].no += w;
+                else if (ans === 'skipped') cats[category].skipped += w;
+                else cats[category].unanswered += w;
+            });
+            return cats;
+        }
 
-    const color = PALETTE[nextId % PALETTE.length];
-    const id    = nextId++;
-    const label = filename.replace(/\.csv$/i, '');
-    datasets.push({ id, name: label, color, rows });
-    renderAll();
-}
+        // ── Process one CSV file ──────────────────────────────────────────
+        function processCSV(filename, text) {
+            const rows = parseCSV(text);
+            if (!rows) {
+                alert(`"${filename}" doesn't look like a valid Compass CSV.\nExpected columns: Category, Answer.`);
+                return;
+            }
 
-// ── Aggregate all loaded datasets into one score map ──────────────
-function aggregateScores() {
-    const allRows = [];
-    datasets.forEach(ds => allRows.push(...ds.rows));
-    return computeScores(allRows);
-}
+            // Version validation: every question must exist in the authoritative list
+            const unknown = unknownQuestions(rows);
+            if (unknown.length > 0) {
+                const list = unknown.map(q => `  • ${q}`).join('\n');
+                const proceed = confirm(
+                    `"${filename}" contains ${unknown.length} question(s) not found in the current questionnaire (v0.6):\n\n${list}\n\nThis file may be from a different version. Add it anyway?`
+                );
+                if (!proceed) return;
+            }
 
-// ── Remove dataset ─────────────────────────────────────────────────
-function removeDataset(id) {
-    datasets = datasets.filter(d => d.id !== id);
-    renderAll();
-}
+            const color = PALETTE[nextId % PALETTE.length];
+            const id = nextId++;
+            const label = filename.replace(/\.csv$/i, '');
+            datasets.push({ id, name: label, color, rows });
+            renderAll();
+        }
 
-// ── Render everything ──────────────────────────────────────────────
-function renderAll() {
-    renderPills();
-    if (datasets.length === 0) {
-        vizSection.style.display  = 'none';
-        emptyState.style.display  = 'block';
-        if (radarChart) { radarChart.destroy(); radarChart = null; }
-        return;
-    }
-    vizSection.style.display  = 'block';
-    emptyState.style.display  = 'none';
-    renderChart();
-    renderTable();
-    renderLegend();
-}
+        // ── Aggregate all loaded datasets into one score map ──────────────
+        function aggregateScores() {
+            const allRows = [];
+            datasets.forEach(ds => allRows.push(...ds.rows));
+            return computeScores(allRows);
+        }
 
-// ── Pills ──────────────────────────────────────────────────────────
-function renderPills() {
-    datasetsList.innerHTML = datasets.map(ds => `
+        // ── Remove dataset ─────────────────────────────────────────────────
+        function removeDataset(id) {
+            datasets = datasets.filter(d => d.id !== id);
+            renderAll();
+        }
+
+        // ── Render everything ──────────────────────────────────────────────
+        function renderAll() {
+            renderPills();
+            if (datasets.length === 0) {
+                vizSection.style.display = 'none';
+                emptyState.style.display = 'block';
+                if (radarChart) { radarChart.destroy(); radarChart = null; }
+                return;
+            }
+            vizSection.style.display = 'block';
+            emptyState.style.display = 'none';
+            renderChart();
+            renderTable();
+            renderLegend();
+        }
+
+        // ── Pills ──────────────────────────────────────────────────────────
+        function renderPills() {
+            datasetsList.innerHTML = datasets.map(ds => `
         <div class="dataset-pill" data-id="${ds.id}">
             <span class="ds-dot" style="background:${ds.color.solid}"></span>
             <span class="ds-name" title="${escHtml(ds.name)}">${escHtml(ds.name)}</span>
@@ -585,125 +646,125 @@ function renderPills() {
         </div>
     `).join('');
 
-    datasetsList.querySelectorAll('.ds-remove').forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.stopPropagation();
-            removeDataset(parseInt(btn.dataset.id));
-        });
-    });
-}
-
-// ── All category labels (from aggregated data) ────────────────────
-function allCategories() {
-    return Object.keys(aggregateScores());
-}
-
-// ── Radar Chart ───────────────────────────────────────────────────
-function renderChart() {
-    const cats   = allCategories();
-    const agg    = aggregateScores();
-    const color  = PALETTE[0];
-    const label  = datasets.length === 1
-        ? datasets[0].name
-        : `${datasets.length} results combined`;
-
-    const values = cats.map(cat => {
-        const s = agg[cat];
-        if (!s) return 0;
-        const answered = s.yes + s.no;
-        return answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
-    });
-
-    const chartDatasets = [{
-        label,
-        data: values,
-        borderColor: color.solid,
-        backgroundColor: color.fill,
-        borderWidth: 2,
-        pointBackgroundColor: color.solid,
-        pointBorderColor: color.solid,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-    }];
-
-    const ctx = document.getElementById('radarChart').getContext('2d');
-
-    if (radarChart) {
-        radarChart.data.labels = cats;
-        radarChart.data.datasets = chartDatasets;
-        radarChart.update();
-        return;
-    }
-
-    radarChart = new Chart(ctx, {
-        type: 'radar',
-        data: { labels: cats, datasets: chartDatasets },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%`
-                    }
-                }
-            },
-            scales: {
-                r: {
-                    min: 0,
-                    max: 100,
-                    ticks: {
-                        stepSize: 25,
-                        color: 'var(--color-text-secondary)',
-                        backdropColor: 'transparent',
-                        callback: v => v + '%',
-                        font: { size: 10 }
-                    },
-                    grid:       { color: 'var(--color-border-divider)', opacity: 0.2 },
-                    angleLines:  { color: 'var(--color-border-divider)', opacity: 0.3 },
-                    pointLabels: {
-                        color: 'var(--color-text-primary)',
-                        font: { size: 12, weight: '500' }
-                    }
-                }
-            }
+            datasetsList.querySelectorAll('.ds-remove').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    removeDataset(parseInt(btn.dataset.id));
+                });
+            });
         }
-    });
-}
 
-// ── Custom Legend ─────────────────────────────────────────────────
-function renderLegend() {
-    const color = PALETTE[0];
-    const label = datasets.length === 1
-        ? datasets[0].name
-        : `${datasets.length} results combined`;
-    chartLegend.innerHTML = `
+        // ── All category labels (from aggregated data) ────────────────────
+        function allCategories() {
+            return Object.keys(aggregateScores());
+        }
+
+        // ── Radar Chart ───────────────────────────────────────────────────
+        function renderChart() {
+            const cats = allCategories();
+            const agg = aggregateScores();
+            const color = PALETTE[0];
+            const label = datasets.length === 1
+                ? datasets[0].name
+                : `${datasets.length} results combined`;
+
+            const values = cats.map(cat => {
+                const s = agg[cat];
+                if (!s) return 0;
+                const answered = s.yes + s.no;
+                return answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
+            });
+
+            const chartDatasets = [{
+                label,
+                data: values,
+                borderColor: color.solid,
+                backgroundColor: color.fill,
+                borderWidth: 2,
+                pointBackgroundColor: color.solid,
+                pointBorderColor: color.solid,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+            }];
+
+            const ctx = document.getElementById('radarChart').getContext('2d');
+
+            if (radarChart) {
+                radarChart.data.labels = cats;
+                radarChart.data.datasets = chartDatasets;
+                radarChart.update();
+                return;
+            }
+
+            radarChart = new Chart(ctx, {
+                type: 'radar',
+                data: { labels: cats, datasets: chartDatasets },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 25,
+                                color: 'var(--color-text-secondary)',
+                                backdropColor: 'transparent',
+                                callback: v => v + '%',
+                                font: { size: 10 }
+                            },
+                            grid: { color: 'var(--color-border-divider)', opacity: 0.2 },
+                            angleLines: { color: 'var(--color-border-divider)', opacity: 0.3 },
+                            pointLabels: {
+                                color: 'var(--color-text-primary)',
+                                font: { size: 12, weight: '500' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ── Custom Legend ─────────────────────────────────────────────────
+        function renderLegend() {
+            const color = PALETTE[0];
+            const label = datasets.length === 1
+                ? datasets[0].name
+                : `${datasets.length} results combined`;
+            chartLegend.innerHTML = `
         <div class="legend-item">
             <span class="legend-dot" style="background:${color.solid}"></span>
             <span>${escHtml(label)}</span>
         </div>
     `;
-}
+        }
 
-// ── Scores Table ─────────────────────────────────────────────────
-function renderTable() {
-    const cats  = allCategories();
-    const agg   = aggregateScores();
-    const color = PALETTE[0];
-    const label = datasets.length === 1
-        ? datasets[0].name
-        : `${datasets.length} results combined`;
+        // ── Scores Table ─────────────────────────────────────────────────
+        function renderTable() {
+            const cats = allCategories();
+            const agg = aggregateScores();
+            const color = PALETTE[0];
+            const label = datasets.length === 1
+                ? datasets[0].name
+                : `${datasets.length} results combined`;
 
-    const rows = cats.map(cat => {
-        const s = agg[cat];
-        if (!s) return `<tr><td>${escHtml(cat)}</td><td><span class="tag-skipped">—</span></td></tr>`;
+            const rows = cats.map(cat => {
+                const s = agg[cat];
+                if (!s) return `<tr><td>${escHtml(cat)}</td><td><span class="tag-skipped">—</span></td></tr>`;
 
-        const answered = s.yes + s.no;
-        const isSkipped = s.skipped > 0 && answered === 0;
-        if (isSkipped) return `<tr><td>${escHtml(cat)}</td><td><span class="tag-skipped">Skipped</span></td></tr>`;
+                const answered = s.yes + s.no;
+                const isSkipped = s.skipped > 0 && answered === 0;
+                if (isSkipped) return `<tr><td>${escHtml(cat)}</td><td><span class="tag-skipped">Skipped</span></td></tr>`;
 
-        const pct = answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
-        return `
+                const pct = answered === 0 ? 0 : Math.round((s.yes / answered) * 100);
+                return `
             <tr>
                 <td>${escHtml(cat)}</td>
                 <td>
@@ -716,9 +777,9 @@ function renderTable() {
                 </td>
             </tr>
         `;
-    }).join('');
+            }).join('');
 
-    scoresTableWrap.innerHTML = `
+            scoresTableWrap.innerHTML = `
         <table>
             <thead>
                 <tr>
@@ -729,12 +790,13 @@ function renderTable() {
             <tbody>${rows}</tbody>
         </table>
     `;
-}
+        }
 
-// ── Utilities ─────────────────────────────────────────────────────
-function escHtml(str) {
-    return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-</script>
+        // ── Utilities ─────────────────────────────────────────────────────
+        function escHtml(str) {
+            return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
 </body>
+
 </html>
