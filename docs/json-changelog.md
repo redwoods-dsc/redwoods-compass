@@ -4,6 +4,16 @@ A plain log of changes made to any JSON file in the project.
 
 ---
 
+**Date:** 2026-04-03  
+**File:** `src/redwoods_compass_questions_v1.0.json`  
+**Change:** `Infrastructure` → Detailed description of changes:
+- Removed redundant question: "Is the design system compatible with the primary languages and frameworks teams use?"
+- Replaced question "For QA testing, do teams rely on human testing, automated testing, or a combination of the two?" with "Is your design system manually tested by a QA team?"
+- Added new question under Subcategory "Distribution & Version Control": "Does your design system have its own release cadence?"
+- **File Renamed:** Renamed the JSON questionnaire file from `v0.6.json` to `v1.0.json`.
+
+---
+
 **Date:** 2026-04-02  
 **File:** `src/redwoods_compass_questions_v0.6.json`  
 **Change:** `Infrastructure` → Detailed description of changes:

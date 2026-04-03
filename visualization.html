@@ -416,7 +416,7 @@
         let VALID_QUESTIONS = new Set();
 
         // Fetch the questions dynamically to ensure they stay up-to-date
-        fetch('src/redwoods_compass_questions_v0.6.json')
+        fetch('src/redwoods_compass_questions_v1.0.json')
             .then(response => response.json())
             .then(data => {
                 data.forEach(category => {

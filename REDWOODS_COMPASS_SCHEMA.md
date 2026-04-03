@@ -1,10 +1,10 @@
 # Redwoods Compass JSON Schema Documentation
 
 Version: 0.6
-Master File: `redwoods_compass_questions_v0.6.json`
+Master File: `redwoods_compass_questions_v1.0.json`
 
 ## Overview
-The `redwoods_compass_questions_v0.6.json` file serves as the core data structure for the Redwoods Compass assessment tool. It organizes architectural and organizational maturity questions into thematic categories, subcategories, and conditional logic.
+The `redwoods_compass_questions_v1.0.json` file serves as the core data structure for the Redwoods Compass assessment tool. It organizes architectural and organizational maturity questions into thematic categories, subcategories, and conditional logic.
 
 ## 1. Root Structure
 The JSON is structured as a **single array of Category Objects**.

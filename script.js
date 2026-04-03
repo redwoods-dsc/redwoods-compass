@@ -1,5 +1,5 @@
 // --- Configuration ---
-const QUESTIONS_FILE_URL = './src/redwoods_compass_questions_v0.6.json';
+const QUESTIONS_FILE_URL = './src/redwoods_compass_questions_v1.0.json';
 
 // --- State ---
 let questions = [];

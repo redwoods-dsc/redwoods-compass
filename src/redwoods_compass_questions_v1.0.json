@@ -381,14 +381,6 @@
         "weight": 1
       },
       {
-        "Subcategory": "Is there a defined tech stack and/or set of frameworks?",
-        "Question": "Is the design system compatible with the primary languages and frameworks teams use?",
-        "Description": "",
-        "Infotip": "",
-        "Answer": "",
-        "weight": 1
-      },
-      {
         "Subcategory": "Distribution & Version Control",
         "Question": "Is the design system isolated in its own repo or colocated with the product?",
         "Description": "",
@@ -399,6 +391,14 @@
       {
         "Subcategory": "Distribution & Version Control",
         "Question": "Do you use a tool like a package manager to distribute the design system?",
+        "Description": "",
+        "Infotip": "",
+        "Answer": "",
+        "weight": 1
+      },
+      {
+        "Subcategory": "Distribution & Version Control",
+        "Question": "Does your design system have its own release cadence?",
         "Description": "",
         "Infotip": "",
         "Answer": "",
@@ -476,7 +476,7 @@
       },
       {
         "Subcategory": "Quality & Testing",
-        "Question": "For QA testing, do teams rely on human testing, automated testing, or a combination of the two?",
+        "Question": "Is your design system manually tested by a QA team?",
         "Description": "",
         "Infotip": "",
         "Answer": "",
