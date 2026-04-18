@@ -14,7 +14,7 @@ let animatedFollowUps = new Set(); // tracks follow-ups that have already played
 // --- DOM Elements ---
 const toggleSubEl = document.getElementById('toggleSub');
 const categoriesContainer = document.getElementById('categoriesContainer');
-const exportCsvBtn = document.getElementById('exportCsvBtn');
+const exportArea = document.getElementById('exportArea');
 const resetBtn = document.getElementById('resetBtn');
 const progressText = document.getElementById('progressText');
 const progressBar = document.getElementById('progressBar');
@@ -23,7 +23,7 @@ const tooltipTextEl = document.getElementById('tooltipText');
 
 // --- Icons (Lucide) ---
 const InfoIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>`;
-const ChevronDownIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>`;
+const ChevronDownIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="4 8 16 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="m6 9 6 6 6-6"></path></svg>`;
 
 // --- Initialize ---
 async function init() {
@@ -60,7 +60,7 @@ async function init() {
         render();
     });
 
-    exportCsvBtn.addEventListener('click', exportCSV);
+    // export button is rendered dynamically by updateExportButton()
     if (resetBtn) resetBtn.addEventListener('click', resetAll);
 
     // Document click to close tooltip if clicking outside
@@ -139,9 +139,6 @@ function parseQuestions(parsedData) {
         subs[q.subcategory].push(q);
     });
 
-    if (questions.length > 0) {
-        exportCsvBtn.removeAttribute('disabled');
-    }
 }
 
 function updateVisibleQuestions() {
@@ -220,6 +217,37 @@ function calculateProgress() {
     progressBar.style.width = `${progress}%`;
 }
 
+function getIncompleteCategories() {
+    return Object.keys(grouped).filter(cat => {
+        if (skippedCats.has(cat)) return false;
+        const qsList = Object.values(grouped[cat].subs).flat();
+        const visibleQs = qsList.filter(q => visibleQuestions.has(q.id));
+        return visibleQs.length === 0 || visibleQs.some(q => !answers[q.id]);
+    });
+}
+
+function updateExportButton() {
+    if (!exportArea) return;
+    const incomplete = getIncompleteCategories();
+
+    if (incomplete.length === 0) {
+        exportArea.innerHTML = `
+            <button id="exportCsvBtn" class="w-full sm:w-auto h-12 px-6 bg-action text-inverse rounded hover:opacity-80 transition-opacity font-medium flex items-center justify-center">
+                Download CSV
+            </button>`;
+        document.getElementById('exportCsvBtn').addEventListener('click', exportCSV);
+    } else {
+        const pills = incomplete.map(cat =>
+            `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-small border border-divider text-secondary bg-canvas">${escapeHtml(cat)}</span>`
+        ).join('');
+        exportArea.innerHTML = `
+            <div class="flex flex-col gap-2 py-1 sm:max-w-xs">
+                <span class="text-small text-muted">Complete or skip all categories to download your results:</span>
+                <div class="flex flex-wrap gap-1.5">${pills}</div>
+            </div>`;
+    }
+}
+
 function updateCategoryCounters() {
     const categoryKeys = Object.keys(grouped);
     categoryKeys.forEach(cat => {
@@ -252,6 +280,7 @@ function updateCategoryCounters() {
             }
         }
     });
+    updateExportButton();
 }
 
 function setAnswer(id, val) {
@@ -476,11 +505,11 @@ function render() {
                             ${escapeHtml(cat)}
                         </h2>
                         <div class="flex-1"></div>
-                        <button class="skip-cat-btn text-small underline z-10 hover:text-link text-muted" data-cat="${escapeHtml(cat)}">
-                            ${isSkippedCat ? 'Unskip' : 'Skip'} Category
-                        </button>
-                        <div class="toggle-cat-btn p-1 transition-transform duration-200 text-muted">
-                            <span class="inline-block transform transition-transform duration-200 ${isExpanded ? '' : 'rotate-180'}">
+                        <div class="flex items-center gap-3">
+                            <button class="skip-cat-btn p-0 text-small underline z-10 hover:text-link text-muted" data-cat="${escapeHtml(cat)}">
+                                ${isSkippedCat ? 'Unskip' : 'Skip'} Category
+                            </button>
+                            <span class="toggle-cat-btn flex items-center text-muted transform transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}">
                                 ${ChevronDownIcon}
                             </span>
                         </div>
@@ -549,7 +578,7 @@ function attachEventHandlers() {
             
             const catContainer = e.target.closest('.cat-container');
             const body = catContainer.querySelector('.cat-body');
-            const iconSpan = catContainer.querySelector('.toggle-cat-btn span');
+            const iconSpan = catContainer.querySelector('.toggle-cat-btn');
             
             if (body && iconSpan) {
                 body.classList.toggle('hidden');

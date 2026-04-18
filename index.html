@@ -139,18 +139,14 @@
 
             <!-- Actions -->
             <div class="mt-8 mb-16 flex flex-col sm:flex-row gap-4">
-                <button id="exportCsvBtn"
-                    class="w-full sm:w-auto h-12 px-6 bg-action text-inverse rounded hover:opacity-80 transition-opacity font-medium flex items-center justify-center"
-                    disabled>
-                    Download CSV
-                </button>
+                <div id="exportArea" class="w-full sm:w-auto"></div>
                 <a href="visualization.html"
-                    class="w-full sm:w-auto h-12 px-6 border border-divider text-primary rounded hover:bg-surface-subtle transition-colors flex items-center justify-center gap-2 font-medium">
+                    class="w-full sm:w-auto h-12 px-6 border border-divider text-primary rounded hover:bg-surface-subtle transition-colors flex items-center justify-center gap-2 font-medium sm:ml-auto">
                     <img src="resources/trees.svg" alt="Trees icon" class="w-[18px] h-[18px] object-contain" />
                     Visualize Results
                 </a>
                 <button id="resetBtn"
-                    class="w-full sm:w-auto h-12 px-6 border border-divider text-muted rounded hover:bg-surface-subtle transition-colors font-medium flex items-center justify-center sm:ml-auto">
+                    class="w-full sm:w-auto h-12 px-6 border border-divider text-muted rounded hover:bg-surface-subtle transition-colors font-medium flex items-center justify-center">
                     Reset
                 </button>
             </div>
