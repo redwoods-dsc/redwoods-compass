@@ -8,7 +8,16 @@ A plain log of changes made to any JSON file in the project.
 **File:** `src/redwoods_compass_questions_v1.0.json`  
 **Change:** Global update:
 - Removed the `Infotip` property from all questions in the questionnaire.
-
+- Replaced all single quotes used as quotation marks around words with escaped double quotes (`\"`) for consistency across Subcategories, Questions, and Descriptions.
+- Formatted all Questions and Descriptions to ensure they start with a capital letter and all Descriptions end with terminal punctuation (a period, if missing).
+**Change:** `Authority` → Detailed description of changes:
+- Subhead description for "Is there a design critique culture in the organization?" changed from "What's being measured here is a gauge the willingness to share, collaborate, and have hard-discussions" to "Organizations with a design critique culture indicates one that has the hard-discussions and has a willingness to share, collaborate, and iterate together"
+**Change:** `Resource Lifecycle` → Detailed description of changes:
+- Subhead description for "Is there a documented process for intake that allows non-maintainers to propose or contribute changes?" changed from "This could include intake forms, contribution guidelines, or open office hours for proposals." to "This could include intake forms, contribution guidelines, or open office hours for proposals for individuals that don't directly work on the design system"
+- Subhead description for "Are documentation updates tied to the release cadence of the code/design libraries?" changed from "Select 'Yes' if your documentation site automatically builds or versions alongside your code packages." to "Select 'Yes' if your documentation site automatically builds or versions alongside your code packages, even if its a manual process"
+**Change:** `People` → Detailed description of changes:
+- Subhead description for "Is there a defined group of intended users for the design system?" changed from "This question is looking to analyze clarity of scope. Ie. 'everyone at our company' is not a 'defined group'" to "Said differently, is the system built for certain internal groups and not others? \"Everyone\" is not a \"defined group\""
+- Question text "Do we have the teammates internally that can successfully build the design system?" changed to "Does the organization have individuals with the skills needed to build a system internally?"
 ---
 
 **Date:** 2026-04-03  
