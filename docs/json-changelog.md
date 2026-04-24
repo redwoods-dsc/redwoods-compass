@@ -4,6 +4,13 @@ A plain log of changes made to any JSON file in the project.
 
 ---
 
+**Date:** 2026-04-24  
+**File:** `src/redwoods_compass_questions_v1.0.json`  
+**Change:** Global update:
+- Removed the `Infotip` property from all questions in the questionnaire.
+
+---
+
 **Date:** 2026-04-03  
 **File:** `src/redwoods_compass_questions_v1.0.json`  
 **Change:** `Infrastructure` → Detailed description of changes:
