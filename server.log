@@ -1,0 +1,16 @@
+::1 - - [24/Apr/2026 17:05:50] "GET / HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:05:51] "GET /tokens.css HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:05:51] "GET /resources/logo.svg HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:05:51] "GET /resources/trees.svg HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:05:51] "GET /script.js HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:05:51] code 404, message File not found
+::1 - - [24/Apr/2026 17:05:51] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [24/Apr/2026 17:05:51] "GET /src/redwoods_compass_questions_v1.0.json HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:10:33] "GET /visualization.html HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:10:34] "GET /src/redwoods_compass_questions_v1.0.json HTTP/1.1" 304 -
+::1 - - [24/Apr/2026 17:12:45] "GET /src/redwoods_compass_questions_v1.0.json HTTP/1.1" 304 -
+::1 - - [24/Apr/2026 17:25:01] "GET /visualization.html HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:25:01] "GET /src/redwoods_compass_questions_v1.0.json HTTP/1.1" 304 -
+::1 - - [24/Apr/2026 17:35:14] "GET /visualization.html HTTP/1.1" 200 -
+::1 - - [24/Apr/2026 17:35:15] "GET /src/redwoods_compass_questions_v1.0.json HTTP/1.1" 304 -
+::1 - - [24/Apr/2026 17:37:14] "GET /visualization.html HTTP/1.1" 200 -
