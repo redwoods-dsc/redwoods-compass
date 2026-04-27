@@ -1,7 +1,7 @@
 [
   {
     "Category": "Authority",
-    "CategoryDescription": "Measures leadership support, decision-making autonomy, and the mandate to enforce standards.",
+    "CategoryDescription": "Measures leadership support, decision making autonomy, and the mandate to enforce standards.",
     "Questions": [
       {
         "Subcategory": "Executive support for decisions through mandates, approval, etc.",
@@ -13,7 +13,7 @@
       {
         "Subcategory": "Executive support for decisions through mandates, approval, etc.",
         "Question": "Is there leadership support for the design system?",
-        "Description": "Support in this context is not necessarily financial, but more in decision-making power and trust to act as subject-matter-experts.",
+        "Description": "Support in this context is not necessarily financial, but more in decision making power and trust to act as subject matter experts.",
         "Answer": "",
         "weight": 1
       },
