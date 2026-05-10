@@ -60,7 +60,7 @@
       },
       {
         "Subcategory": "Alignment on the \"why\" for the people doing the work (internal-why)",
-        "Question": "Does your system have a specific set of team-level goals or missions that might not directly relate to the organization-level mission statement?",
+        "Question": "Does your system have a specific set of stable team-level goals or missions that might not directly relate to the organization-level mission statement?",
         "Description": "",
         "Answer": "",
         "weight": 1
@@ -342,7 +342,7 @@
       },
       {
         "Subcategory": "Distribution & Version Control",
-        "Question": "Is the design system isolated in its own repo or colocated with the product?",
+        "Question": "Does the design system live in its own dedicated repository, separate from the product?",
         "Description": "",
         "Answer": "",
         "weight": 1

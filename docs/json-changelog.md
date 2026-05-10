@@ -4,7 +4,19 @@ A plain log of changes made to any JSON file in the project.
 
 ---
 
-**Date:** 2026-04-24  
+**Date:** 2026-05-10
+**File:** `src/redwoods_compass_questions_v1.0.json`
+**Change:** `Infrastructure` → Detailed description of changes:
+- Question text "Is the design system isolated in its own repo or colocated with the product?" changed to "Does the design system live in its own dedicated repository, separate from the product?" to make it answerable as a yes/no question.
+- Question text "Does your system have a specific set of team-level goals or missions that might not directly relate to the organization-level mission statement?" changed to "Does your system have a specific set of stable team-level goals or missions that might not directly relate to the organization-level mission statement?"
+
+**Change:** Global → Terminology consistency:
+- Replaced all instances of "org" (standalone) and "org-level" with "organization" and "organization-level".
+- Replaced all instances of British spelling "organisation" with "organization".
+
+---
+
+
 **File:** `src/redwoods_compass_questions_v1.0.json`  
 **Change:** Global update:
 - Removed the `Infotip` property from all questions in the questionnaire.
