@@ -505,7 +505,7 @@ function render() {
                             ${escapeHtml(cat)}
                         </h2>
                         <div class="flex-1"></div>
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-7">
                             <button class="skip-cat-btn p-0 text-small underline z-10 hover:text-link text-muted" data-cat="${escapeHtml(cat)}">
                                 ${isSkippedCat ? 'Unskip' : 'Skip'} Category
                             </button>
