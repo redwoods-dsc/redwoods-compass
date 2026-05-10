@@ -18,7 +18,7 @@
         "weight": 1
       },
       {
-        "Subcategory": "Permission to make decisions on behalf of the org",
+        "Subcategory": "Permission to make decisions on behalf of the organization",
         "Question": "Does the design system team have the autonomy to make decisions for other teams without requiring case-by-case approval?",
         "Description": "Decisions in this case refer to system-level changes, additions, or modifications (ie. not product-level features).",
         "Answer": "",
@@ -39,20 +39,20 @@
       },
       {
         "Subcategory": "Alignment on the \"why\" consumers should use the design system (e.g., the individual contributor value proposition)",
-        "Question": "Do designers at your organisation have deep, T-shaped specialisms (e.g., UX, UI, research, content, information architecture)?",
+        "Question": "Do designers at your organization have deep, T-shaped specialisms (e.g., UX, UI, research, content, information architecture)?",
         "Description": "Some organizations focus on hiring specialists, some generalists.",
         "Answer": "",
         "weight": 1
       },
       {
         "Subcategory": "Alignment on the \"why\" consumers should use the design system (e.g., the individual contributor value proposition)",
-        "Question": "Does the org have an established digital governance framework?",
+        "Question": "Does the organization have an established digital governance framework?",
         "Description": "Digital governance often takes shape as an alignment team, standards group, design review requirement, or robust QA process, but can come in many forms.",
         "Answer": "",
         "weight": 1
       },
       {
-        "Subcategory": "Alignment on the \"why\" for the org (vision, charter, future state, needs of the org and/or products)",
+        "Subcategory": "Alignment on the \"why\" for the organization (vision, charter, future state, needs of the organization and/or products)",
         "Question": "Is there a specific goal or mission statement for the design system?",
         "Description": "Does your system have a defined purpose or charter to help frame what success looks like overall.",
         "Answer": "",
@@ -60,7 +60,7 @@
       },
       {
         "Subcategory": "Alignment on the \"why\" for the people doing the work (internal-why)",
-        "Question": "Does your system have a specific set of team-level goals or missions that might not directly relate to the org-level mission statement?",
+        "Question": "Does your system have a specific set of team-level goals or missions that might not directly relate to the organization-level mission statement?",
         "Description": "",
         "Answer": "",
         "weight": 1
@@ -216,7 +216,7 @@
       },
       {
         "Subcategory": "Ability to do in house?",
-        "Question": "Can we supplement the core design system team with additional teammates from around the org?",
+        "Question": "Can we supplement the core design system team with additional teammates from around the organization?",
         "Description": "Supplement, in this case, means contribute to or collaborate with the core design system team.",
         "Answer": "",
         "weight": 1
@@ -285,7 +285,7 @@
       },
       {
         "Subcategory": "Time Investment: Training capacity, ability to spend time on learning and not delivery work",
-        "Question": "Does the org make space for learning and development in the average work day/week/cycle?",
+        "Question": "Does the organization make space for learning and development in the average work day/week/cycle?",
         "Description": "",
         "Answer": "",
         "weight": 1
@@ -299,7 +299,7 @@
       {
         "id": "infra_multiple_platforms",
         "Subcategory": "Is there a defined tech stack and/or set of frameworks?",
-        "Question": "Does your organisation build on multiple platforms?",
+        "Question": "Does your organization build on multiple platforms?",
         "Description": "",
         "Answer": "",
         "weight": 1
